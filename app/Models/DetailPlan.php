@@ -8,6 +8,7 @@ class DetailPlan extends Model
 {
     protected $table = 'detail_plans';
 
+    protected $fillable = ['name'];
 
     public function plan(){
         return $this->belongsTo(Plan::class);

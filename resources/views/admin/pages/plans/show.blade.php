@@ -23,6 +23,9 @@
                     <strong>Descrição: </strong> R$ {{ number_format($plan->price, 2, ',', '.') }}
                 </li>
             </ul>
+
+            @include('admin.includes.alerts')
+
             <form action="{{ route('plans.destroy', $plan->url) }}" method="POST"> 
                 @csrf
                 @method('DELETE')

@@ -3,8 +3,17 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('Admin')->group(function(){
-    
+
+    // detalhes do plan
+    Route::get('plans/{url}/details/create', 'DetailPlanController@create')->name('details.plan.create');
+    Route::delete('plans/{url}/details/{idDetail}', 'DetailPlanController@destroy')->name('details.plan.destroy');
+    Route::get('plans/{url}/details/{idDetail}', 'DetailPlanController@show')->name('details.plan.show');
+    Route::put('plans/{url}/details/{idDetail}/update', 'DetailPlanController@update')->name('details.plan.update');
+    Route::get('plans/{url}/details/{idDetail}/edit', 'DetailPlanController@edit')->name('details.plan.edit');
+    Route::post('plans/{url}/details', 'DetailPlanController@store')->name('details.plan.store');
     Route::get('plans/{url}/details', 'DetailPlanController@index')->name('details.plan.index');
+
+
     // registrar planos
     Route::get('plans/create', 'PlanController@create')->name('plans.create');
     // editar registros
@@ -20,7 +29,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
     Route::get('plans', 'PlanController@index')->name('plans.index');
     Route::post('plans/', 'PlanController@store')->name('plans.store');
 
-    Route::get('/', 'lanController@index')->name('admin.index');
+    Route::get('/', 'PlanController@index')->name('admin.index');
 });
 
 Route::get('/', function () {
