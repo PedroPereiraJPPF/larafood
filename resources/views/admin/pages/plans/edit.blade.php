@@ -12,7 +12,7 @@
             <form action="{{ route('plans.update', $plan->url) }}" method="post" class="form">
                 @csrf
                 @method('PUT')
-                
+
                 @include('admin.pages.plans._partials.form')
             </form>
         </div>

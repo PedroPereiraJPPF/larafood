@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
+    //Rotas de Profiles
+    Route::any('/profiles/search', 'ACL\ProfileController@search')->name('profiles.search');
+    Route::resource('profiles', 'ACL\ProfileController');
+
+
     // detalhes do plan
     Route::get('plans/{url}/details/create', 'DetailPlanController@create')->name('details.plan.create');
     Route::delete('plans/{url}/details/{idDetail}', 'DetailPlanController@destroy')->name('details.plan.destroy');

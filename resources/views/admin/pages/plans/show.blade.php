@@ -17,16 +17,16 @@
                     <strong>URL: </strong> {{ $plan->url }}
                 </li>
                 <li>
-                    <strong>Preço: </strong> {{ $plan->price }}
+                    <strong>Preço: </strong> R$ {{ number_format($plan->price, 2, ',', '.') }}
                 </li>
-                <li> 
-                    <strong>Descrição: </strong> R$ {{ number_format($plan->price, 2, ',', '.') }}
+                <li>
+                    <strong>Descrição: </strong> {{ $plan->description }}
                 </li>
             </ul>
 
             @include('admin.includes.alerts')
 
-            <form action="{{ route('plans.destroy', $plan->url) }}" method="POST"> 
+            <form action="{{ route('plans.destroy', $plan->url) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">deletar o registro</button>
