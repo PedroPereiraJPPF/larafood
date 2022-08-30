@@ -275,6 +275,10 @@ return [
             'text' => 'Perfis',
             'url'  => 'admin/profiles',
         ],
+        [
+            'text' => 'Permissões',
+            'url'  => 'admin/permissions',
+        ],
     ],
 
     /*
