@@ -1,4 +1,4 @@
-@include('admin.includes.alerts');
+@include('admin.includes.alerts')
 
 <div class="form-group">
     <label>* Nome:</label>

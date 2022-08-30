@@ -4,6 +4,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
+    //Rotas de Permissions X profile
+
+
+    Route::get('profiles/{id}/permissions/create', 'ACL\PermissionProfileController@permissionsAvaliable')->name('profile.permissions.avaliable');
+    Route::post('profiles/{id}/permissions', 'ACL\PermissionProfileController@attachPermissionsProfile')->name('profile.permissions.attach');
+    Route::get('profiles/{id}/permissions', 'ACL\PermissionProfileController@permissions')->name('profile.permissions');
+
+
     //Rotas de Permissions
     Route::any('/permissions/search', 'ACL\PermissionController@search')->name('permissions.search');
     Route::resource('permissions', 'ACL\PermissionController');

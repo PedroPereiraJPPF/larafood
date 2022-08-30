@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Perfis')
+@section('title', 'Permissões do Perfil {{$profile->name}}')
 
 @section('content_header')
 <ol class="breadcrumb">
     <li class='breadcrumb-item'><a href="{{ route('admin.index') }}">Dashboard</a></li>
     <li class='breadcrumb-item active'><a href="{{ route('profiles.index') }}">Perfil</a></li>
 </ol>
-    <h1>Perfis<a href="{{ route('profiles.create') }}" class='btn btn-dark'>Add</a></h1>
+    <h1>Permissões do perfil<a href="{{ route('profile.permissions.avaliable', $profile->id) }}" class='btn btn-dark'>Add permissão</a></h1>
 @stop
 
 @section('content')
@@ -29,29 +29,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($profiles as $profile)
+                    @foreach ($permissions as $permission)
                         <tr>
                             <td>
-                                {{ $profile->nome }}
+                                {{ $permission->name }}
                             </td>
                             <td style="width=10px">
-                                {{-- <a href="{{ route('details.profile.index', $profile->id) }}" class = 'btn btn-info'>Detalhes</a> --}}
-                                <a href="{{ route('profiles.edit', $profile->id) }}" class = 'btn btn-info'>Edit</a>
-                                <a href="{{ route('profiles.show', $profile->id) }}" class='btn btn-warning'>Ver</a>
-                                <a href="{{ route('profile.permissions', $profile->id) }}" class='btn btn-warning'>Permissions</a>
+                                <a href="{{ route('permissions.edit', $permission->id) }}" class = 'btn btn-info'>Edit</a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="card-footer">
+        {{-- <div class="card-footer">
             @if (isset($filters))
-                {!! $profiles->appends($filters)->links() !!}
+                {!! $permissions->appends($filters)->links() !!}
             @else
-                {!! $profiles->links() !!}
+                {!! $permissions->links() !!}
             @endif
-        </div>
+        </div> --}}
     </div>
 @stop
 
