@@ -13,7 +13,7 @@
 @section('content')
     <div class='card'>
         <div class='card-header'>
-            <form action="{{ route('profiles.search')}}" method="post" class="form form-inline">
+            <form action="{{ route('profile.permissions.avaliable', $profile->id)}}" method="post" class="form form-inline">
                 @csrf
                 <input type="text" name="filter" placeholder="filtro" class = "form-control" value ="{{ $filters['filter'] ?? '' }}">
                 <button type="submit" class="btn btn-dark">Filtrar</button>

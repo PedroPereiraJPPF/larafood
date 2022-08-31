@@ -5,9 +5,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
     //Rotas de Permissions X profile
-
-
-    Route::get('profiles/{id}/permissions/create', 'ACL\PermissionProfileController@permissionsAvaliable')->name('profile.permissions.avaliable');
+    Route::get('profiles/{id}/permissions/{idPermission}/detach', 'ACL\PermissionProfileController@detachPermissionsProfile')->name('profile.permissions.detach');
+    Route::any('profiles/{id}/permissions/create', 'ACL\PermissionProfileController@permissionsAvaliable')->name('profile.permissions.avaliable');
     Route::post('profiles/{id}/permissions', 'ACL\PermissionProfileController@attachPermissionsProfile')->name('profile.permissions.attach');
     Route::get('profiles/{id}/permissions', 'ACL\PermissionProfileController@permissions')->name('profile.permissions');
 
