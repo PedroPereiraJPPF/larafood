@@ -1,46 +1,52 @@
 @extends('adminlte::page')
 
-@section('title', 'Perfis')
+@section('title', 'Permissões disponiveis do Perfil {{$plan->name}}')
 
 @section('content_header')
 <ol class="breadcrumb">
     <li class='breadcrumb-item'><a href="{{ route('admin.index') }}">Dashboard</a></li>
     <li class='breadcrumb-item active'><a href="{{ route('profiles.index') }}">Perfil</a></li>
 </ol>
-    <h1>Perfis<a href="{{ route('profiles.create') }}" class='btn btn-dark'>Add</a></h1>
+    <h1>Perfis disponiveis para o plan {{$plan->name}}</h1>
 @stop
 
 @section('content')
     <div class='card'>
         <div class='card-header'>
-            <form action="{{ route('profiles.search')}}" method="post" class="form form-inline">
+            <form action="{{ route('profile.permissions.avaliable', $plan->id)}}" method="post" class="form form-inline">
                 @csrf
                 <input type="text" name="filter" placeholder="filtro" class = "form-control" value ="{{ $filters['filter'] ?? '' }}">
                 <button type="submit" class="btn btn-dark">Filtrar</button>
             </form>
-
         </div>
         <div class='card-body'>
             <table class='table table-condensed'>
                 <thead>
                     <tr>
+                        <th width="50px">#</th>
                         <th>Nome</th>
-                        <th width="250">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($profiles as $profile)
+                    <form action="{{ route('plan.profiles.attach', $plan->id) }}" method="post">
+                        @csrf
+                        @foreach ($profiles as $profile)
                         <tr>
+                            <td>
+                                <input type="checkbox" name="profiles[]" value="{{ $profile->id }}">
+                            </td>
                             <td>
                                 {{ $profile->nome }}
                             </td>
-                            <td style="width=10px">
-                                <a href="{{ route('profiles.edit', $profile->id) }}" class = 'btn btn-info'>Edit</a>
-                                <a href="{{ route('profiles.show', $profile->id) }}" class='btn btn-warning'>Ver</a>
-                                <a href="{{ route('profile.permissions', $profile->id) }}" class='btn btn-warning'>Permissions</a>
+                        </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="500">
+                                @include('admin.includes.alerts')
+                                <button type="submit" class="btn btn-success">Vincular</button>
                             </td>
                         </tr>
-                    @endforeach
+                    </form>
                 </tbody>
             </table>
         </div>

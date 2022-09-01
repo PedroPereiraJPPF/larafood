@@ -15,10 +15,10 @@
         <div class='card-header'>
             <form action="{{ route('plans.search')}}" method="post" class="form form-inline">
                 @csrf
-                <input type="text" name="filter" placeholder="nome" class = "form-control" value ="{{ $filters['filter'] ?? '' }}"> 
+                <input type="text" name="filter" placeholder="nome" class = "form-control" value ="{{ $filters['filter'] ?? '' }}">
                 <button type="submit" class="btn btn-dark">Filtrar</button>
             </form>
-            
+
         </div>
         <div class='card-body'>
             <table class='table table-condensed'>
@@ -42,6 +42,7 @@
                                 <a href="{{ route('details.plan.index', $plan->url) }}" class = 'btn btn-info'>Detalhes</a>
                                 <a href="{{ route('plans.edit', $plan->url) }}" class = 'btn btn-info'>Edit</a>
                                 <a href="{{ route('plans.show', $plan->url) }}" class='btn btn-warning'>Ver</a>
+                                <a href="{{ route('plan.profile.show', $plan->id) }}" class='btn btn-warning'>Perfis</a>
                             </td>
                         </tr>
                     @endforeach

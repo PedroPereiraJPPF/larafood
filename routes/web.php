@@ -4,11 +4,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
+    //Rotas de Plan X Profile
+    Route::get('/plan/{id}/profiles', 'ACL\PlanProfileController@profiles')->name('plan.profile.show');
+    Route::post('plan/{id}/profiles', 'ACL\PlanProfileController@attachPlanProfile')->name('plan.profiles.attach');
+    Route::get('plan/{id}/profiles/{idProfile}/detach', 'ACL\PlanProfileController@detachPlanProfile')->name('plan.profiles.detach');
+    Route::get('/plan/{id}/profiles/create', 'ACL\PlanProfileController@profilesAvaliable')->name('plan.profiles.avaliable');
+
     //Rotas de Permissions X profile
     Route::get('profiles/{id}/permissions/{idPermission}/detach', 'ACL\PermissionProfileController@detachPermissionsProfile')->name('profile.permissions.detach');
     Route::any('profiles/{id}/permissions/create', 'ACL\PermissionProfileController@permissionsAvaliable')->name('profile.permissions.avaliable');
     Route::post('profiles/{id}/permissions', 'ACL\PermissionProfileController@attachPermissionsProfile')->name('profile.permissions.attach');
     Route::get('profiles/{id}/permissions', 'ACL\PermissionProfileController@permissions')->name('profile.permissions');
+    Route::get('profiles/{id}/profiles', 'ACL\PermissionProfileController@profiles')->name('permissions.profile');
 
 
     //Rotas de Permissions
@@ -46,9 +53,6 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
     Route::get('plans', 'PlanController@index')->name('plans.index');
     Route::post('plans/', 'PlanController@store')->name('plans.store');
 
-    Route::get('/', 'PlanController@index')->name('admin.index');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Admin\PlanController@index')->name('admin.index');
