@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->namespace('Admin')->group(function(){
+Route::prefix('admin')
+->namespace('Admin')
+->middleware('auth')
+->group(function(){
 
     //Rotas de Plan X Profile
     Route::get('/plan/{id}/profiles', 'ACL\PlanProfileController@profiles')->name('plan.profile.show');
@@ -53,6 +56,11 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
     Route::get('plans', 'PlanController@index')->name('plans.index');
     Route::post('plans/', 'PlanController@store')->name('plans.store');
 
+    Route::get('/', 'PlanController@index')->name('admin.index');
+
 });
 
-Route::get('/', 'Admin\PlanController@index')->name('admin.index');
+Route::get('/', 'site\SiteController@index');
+
+Auth::routes();
+
