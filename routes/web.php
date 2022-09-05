@@ -7,6 +7,11 @@ Route::prefix('admin')
 ->middleware('auth')
 ->group(function(){
 
+
+    //Rotas de Users
+    Route::any('users/search', 'UserController@search')->name('users.search');
+    Route::resource('users', 'UserController');
+
     //Rotas de Plan X Profile
     Route::get('/plan/{id}/profiles', 'ACL\PlanProfileController@profiles')->name('plan.profile.show');
     Route::post('plan/{id}/profiles', 'ACL\PlanProfileController@attachPlanProfile')->name('plan.profiles.attach');
@@ -60,6 +65,8 @@ Route::prefix('admin')
 
 });
 
+// rotas do site
+Route::get('/plan/{url}', 'site\SiteController@plan')->name('plan.subscribe');
 Route::get('/', 'site\SiteController@index');
 
 Auth::routes();

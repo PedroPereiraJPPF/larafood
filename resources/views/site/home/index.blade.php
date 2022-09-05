@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="pricingTable-signup">
-                    <a href="#">Assinar</a>
+                    <a href="{{ route('plan.subscribe', $plan->url) }}">Assinar</a>
                 </div>
             </div>
         </div>
