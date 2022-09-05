@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->repository->paginate();
+        $users = $this->repository->latest()->TenantUser()->paginate();
 
         return view('admin.pages.users.index', [
             'users' => $users,
@@ -49,6 +49,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         $data['tenant_id'] = auth()->user()->tenant_id;
+        $data['password'] = bcrypt($data['password']);
         $this->repository->create($data);
 
         return redirect()->route('users.index');
@@ -62,7 +63,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        if (!$user = $this->repository->find($id)) {
+        if (!$user = $this->repository->TenantUser()->find($id)) {
             return redirect()->back();
         }
 
@@ -77,7 +78,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if (!$user = $this->repository->find($id)) {
+        if (!$user = $this->repository->TenantUser()->find($id)) {
             return redirect()->back();
         }
 
@@ -96,8 +97,13 @@ class UserController extends Controller
         if (!$user = $this->repository->find($id)) {
             return redirect()->back();
         }
+        $data = $request->only('name', 'email');
 
-        $user->update($request->all());
+        if($request->password){
+            $data['password'] = bcrypt($data);
+        }
+
+        $user->update($data);
 
         return redirect()->route('users.index');
     }
@@ -110,7 +116,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if (!$user = $this->repository->find($id)) {
+        if (!$user = $this->repository->TenantUser()->find($id)) {
             return redirect()->back();
         }
 
@@ -136,6 +142,8 @@ class UserController extends Controller
             }
 
         })
+        ->latest()
+        ->TenantUser()
         ->paginate();
 
         return view('admin.pages.users.index', [
