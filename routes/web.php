@@ -7,6 +7,9 @@ Route::prefix('admin')
 ->middleware('auth')
 ->group(function(){
 
+    //Rotas de categorias
+    Route::any('categories/search', 'CategoriesController@search')->name('categories.search');
+    Route::resource('categories', 'CategoriesController');
 
     //Rotas de Users
     Route::any('users/search', 'UserController@search')->name('users.search');

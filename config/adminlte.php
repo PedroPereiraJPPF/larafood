@@ -283,6 +283,10 @@ return [
             'text' => 'Usuários',
             'url'  => 'admin/users',
         ],
+        [
+            'text' => 'Categorias',
+            'url'  => 'admin/categories',
+        ],
     ],
 
     /*
