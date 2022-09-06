@@ -15,7 +15,7 @@ class CategoryObserver
     public function creating(Category $category)
     {
         $category->url = Str::kebab($category->name);
-        $category->tenant_id = (auth()->user()->tenant_id);
+        // $category->tenant_id = (auth()->user()->tenant_id);
     }
 
     /**

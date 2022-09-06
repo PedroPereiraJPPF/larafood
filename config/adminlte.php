@@ -287,6 +287,10 @@ return [
             'text' => 'Categorias',
             'url'  => 'admin/categories',
         ],
+        [
+            'text' => 'Productos',
+            'url'  => 'admin/products',
+        ],
     ],
 
     /*

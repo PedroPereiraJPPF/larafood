@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Tenant;
-
+namespace App\Tenant\Observers;
+use App\Tenant\ManagerTenant;
 use Illuminate\Database\Eloquent\Model;
 
 class TenantObserver{

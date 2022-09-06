@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
-use App\Tenant\Observers\TenantObserver;
+use App\Tenant\Observers\TenantObserver as teste;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['name', 'url', 'description',];
+    protected $fillable = ['name', 'url', 'description'];
 
-    protected static function booted()
+    public function products(){
+        $this->belongsToMany(Product::class);
+    }
+
+    protected static function boot()
     {
+        parent::boot();
 
-        // static::observe(TenantObserver::class);
+        static::observe(teste::class);
     }
 
 }
