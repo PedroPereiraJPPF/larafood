@@ -60,7 +60,11 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!$category = $this->repository->where('tenant_id', auth()->user()->tenant_id)->find($id)){
+            return redirect()->back();
+        }
+
+        return view('admin.pages.categories.show', compact('category'));
     }
 
     /**
@@ -71,7 +75,11 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!$category = $this->repository->where('tenant_id', auth()->user()->tenant_id)->find($id)){
+            return redirect()->back();
+        }
+
+        return view('admin.pages.categories.edit', compact('category'));
     }
 
     /**
@@ -83,7 +91,15 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categories = $this->repository->latest()->paginate();
+
+        if(!$categories){
+            return redirect()->back();
+        }
+
+        $this->repository->find($id)->update($request->all());
+
+        return view('admin.pages.categories.index', compact('categories'));
     }
 
     /**
@@ -94,6 +110,36 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categories =  $this->repository->find($id);
+
+        if(!$categories){
+            return redirect()->back();
+        }
+
+        $categories->delete();
+
+        return redirect()->route('categories.index');
     }
+
+    public function search(Request $request)
+    {
+        $filters = $request->only('filter');
+
+        $categories = $this->repository
+        ->where(function($query) use ($request){
+            if($request->filter) {
+                $query->orWhere('name', $request->filter);
+                $query->orWhere('description', $request->filter);
+            }
+
+        })
+        ->latest()
+        ->paginate();
+
+        return view('admin.pages.categories.index', [
+            'categories' => $categories,
+            'filters' => $filters,
+        ]);
+    }
+
 }
