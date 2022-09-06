@@ -3,15 +3,11 @@
 
 <div class="form-group">
     <label>Nome:</label>
-    <input type="text" name="name" class="form-control" placeholder="name" value="{{ $user->name ?? old('name')}}">
+    <input type="text" name="name" class="form-control" placeholder="name" value="{{ $category->name ?? old('name')}}">
 </div>
 <div class="form-group">
-    <label>Email:</label>
-    <input type="text" name="email" class="form-control" placeholder="email" value="{{$user->email ?? old('email')}}">
-</div>
-<div class="form-group">
-    <label>Senha:</label>
-    <input type="text" name="password" class="form-control" placeholder="Senha" value="">
+    <label>Descrição</label>
+    <textarea name="description" id="description" cols="30" rows="5" class="form-control">{{ $category->description ?? old('description') }}</textarea>
 </div>
 <div class="form-group">
     <button type="submit" class="btn btn-dark">Enviar</button>
