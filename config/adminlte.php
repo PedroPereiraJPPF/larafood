@@ -288,7 +288,7 @@ return [
             'url'  => 'admin/categories',
         ],
         [
-            'text' => 'Productos',
+            'text' => 'Produtos',
             'url'  => 'admin/products',
         ],
     ],
