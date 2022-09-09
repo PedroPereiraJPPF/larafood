@@ -7,6 +7,18 @@ Route::prefix('admin')
 ->middleware('auth')
 ->group(function(){
 
+    // rotas de categorias x produtos
+    Route::get('products/{id}/categories/{idCategory}/delete', 'CategoryProductController@productCategoryDetach')->name('categories.detach');
+    Route::post('products/{id}/categories', 'CategoryProductController@productCategoryAttach')->name('categories.attach');
+    Route::any('products/{id}/categories/show', 'CategoryProductController@categoriesAvaliable')->name('categories.avaliable');
+    Route::get('categories/{id}/categories', 'CategoryProductController@categories')->name('product.categories');
+    Route::get('categories/{id}/products', 'CategoryProductController@products');
+
+
+    //Rotas de produtos
+    Route::any('products/search', 'ProductsController@search')->name('products.search');
+    Route::resource('products', 'ProductsController');
+
     //Rotas de categorias
     Route::any('categories/search', 'CategoriesController@search')->name('categories.search');
     Route::resource('categories', 'CategoriesController');

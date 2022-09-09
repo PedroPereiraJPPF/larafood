@@ -37,7 +37,6 @@ class Plan extends Model
             $query->whereRaw("plan_profile.plan_id={$this->id}");
         })
         ->paginate();
-
         return $profiles;
      }
 }

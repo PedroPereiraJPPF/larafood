@@ -29,7 +29,7 @@ class DetailPlanController extends Controller
             'plan' => $plan,
             'details' => $details,
         ]);
-        
+
     }
 
     public function create($urlPlan){
@@ -37,21 +37,17 @@ class DetailPlanController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.pages.plans.details.create', 
+        return view('admin.pages.plans.details.create',
         [
             'plan' => $plan,
         ]);
     }
 
     public function store(StoreUpdateDetailPlan $request, $urlPlan){
-        
+
         if(!$plan = $this->plan->where('url', $urlPlan)->first()){
             return redirect()->back();
         }
-
-        // $data = $request->all();
-        // $data['plan_id'] = $plan->id;
-        // $this->repository->create($data);
 
         $plan->details()->create($request->all());
 
@@ -59,10 +55,10 @@ class DetailPlanController extends Controller
     }
 
     public function edit($urlPlan, $idDetail){
-        
+
         $plan = $this->plan->where('url', $urlPlan)->first();
         $detail = $this->repository->find($idDetail);
-        
+
         if(!$plan || !$detail){
             return redirect()->back();
         }
@@ -74,10 +70,10 @@ class DetailPlanController extends Controller
     }
 
     public function update(StoreUpdateDetailPlan $request, $urlPlan, $idDetail){
-        
+
         $plan = $this->plan->where('url', $urlPlan)->first();
         $detail = $this->repository->find($idDetail);
-        
+
         if(!$plan || !$detail){
             return redirect()->back();
         }
@@ -89,10 +85,10 @@ class DetailPlanController extends Controller
     }
 
     public function show($urlPlan, $idDetail){
-        
+
         $plan = $this->plan->where('url', $urlPlan)->first();
         $detail = $this->repository->find($idDetail);
-        
+
         if(!$plan || !$detail){
             return redirect()->back();
         }
@@ -104,10 +100,10 @@ class DetailPlanController extends Controller
     }
 
     public function destroy($urlPlan, $idDetail){
-        
+
         $plan = $this->plan->where('url', $urlPlan)->first();
         $detail = $this->repository->find($idDetail);
-        
+
         if(!$plan || !$detail){
             return redirect()->back();
         }
