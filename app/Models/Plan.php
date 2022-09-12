@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\testeTrait;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Plan extends Model
 {
+
      protected $fillable = ['name', 'url', 'price', 'description'];
 
 

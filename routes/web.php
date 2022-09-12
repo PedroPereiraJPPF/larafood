@@ -7,6 +7,13 @@ Route::prefix('admin')
 ->middleware('auth')
 ->group(function(){
 
+
+
+    // rota de debug
+    Route::get('/acl-test', function(){
+        dd(auth()->user()->isAdmin());
+    });
+
     // rotas de categorias x produtos
     Route::get('products/{id}/categories/{idCategory}/delete', 'CategoryProductController@productCategoryDetach')->name('categories.detach');
     Route::post('products/{id}/categories', 'CategoryProductController@productCategoryAttach')->name('categories.attach');

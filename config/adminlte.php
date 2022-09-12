@@ -270,26 +270,32 @@ return [
         [
             'text' => 'Planos',
             'url'  => 'admin/plans',
+            'can' => 'plans'
         ],
         [
             'text' => 'Perfis',
             'url'  => 'admin/profiles',
+            'can' => 'profiles'
         ],
         [
             'text' => 'Permissões',
             'url'  => 'admin/permissions',
+            'can' => 'permissions'
         ],
         [
             'text' => 'Usuários',
             'url'  => 'admin/users',
+            'can' => 'users'
         ],
         [
             'text' => 'Categorias',
             'url'  => 'admin/categories',
+            'can' =>'categories'
         ],
         [
             'text' => 'Produtos',
             'url'  => 'admin/products',
+            'can' => 'products'
         ],
     ],
 

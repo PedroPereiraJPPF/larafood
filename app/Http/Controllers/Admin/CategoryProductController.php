@@ -29,7 +29,7 @@ class CategoryProductController extends Controller
 
         $products = $categories->products;
 
-        return view('', compact('products'));
+        return view('admin.pages.products.categories.products', compact('products'));
     }
     // retornar categorias
     public function categories($idProduct)
