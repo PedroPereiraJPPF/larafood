@@ -55,7 +55,7 @@ Route::prefix('admin')
 
     //Rotas de Profiles
     Route::any('/profiles/search', 'ACL\ProfileController@search')->name('profiles.search');
-    Route::resource('profiles', 'ACL\ProfileController');
+    Route::resource('profiles', 'ACL\ProfileController')->middleware('can:profiles');
 
 
     // detalhes do plan
