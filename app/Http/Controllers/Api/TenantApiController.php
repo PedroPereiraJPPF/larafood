@@ -20,4 +20,9 @@ class TenantApiController extends Controller
     {
         return TenantResource::collection($this->TenantService->getAllTenants());
     }
+    public function getTenantByUuid($uuid)
+    {
+        $tenant = $this->TenantService->getTenantByUuid($uuid);
+        return new TenantResource($tenant);
+    }
 }
