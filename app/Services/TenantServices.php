@@ -3,10 +3,16 @@
 namespace App\Services;
 
 use App\Models\Plan;
+use App\Repositories\Contracts\TenantRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
 class TenantServices{
     private $plan ,$data = [];
+
+    public function __construct(TenantRepositoryInterface $repository)
+    {
+        $this->repositoty = $repository;
+    }
 
     public function make(Plan $plan,array $data)
     {
