@@ -11,7 +11,12 @@ class TenantServices{
 
     public function __construct(TenantRepositoryInterface $repository)
     {
-        $this->repositoty = $repository;
+        $this->repository = $repository;
+    }
+
+    public function getAllTenants()
+    {
+       return $this->repository->getAllTenants();
     }
 
     public function make(Plan $plan,array $data)
