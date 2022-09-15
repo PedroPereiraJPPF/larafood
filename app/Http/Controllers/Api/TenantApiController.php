@@ -16,13 +16,20 @@ class TenantApiController extends Controller
         $this->TenantService = $TenantService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return TenantResource::collection($this->TenantService->getAllTenants());
+        $per_page = $request->get('per_page', 15);
+
+        $tenants = $this->TenantService->getAllTenants($per_page);
+
+        return TenantResource::collection($tenants);
     }
     public function getTenantByUuid($uuid)
     {
-        $tenant = $this->TenantService->getTenantByUuid($uuid);
+        if(!$tenant = $this->TenantService->getTenantByUuid($uuid))
+        {
+            return response()->json(['message' => 'not found'], 404);
+        }
         return new TenantResource($tenant);
     }
 }
