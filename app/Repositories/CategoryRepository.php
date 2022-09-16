@@ -4,34 +4,32 @@ namespace App\Repositories;
 
 use App\Models\Category;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    protected $entity;
+    protected $table;
 
-    public function __construct(Category $category)
+    public function __construct()
     {
-        // dd(auth()->user());
-        // dd($category->all());
-        $this->entity = $category;
-    }
-
-    public function teste()
-    {
-        return 'opapaoa';
+        $this->table = 'categories';
     }
 
     public function getCategoriesByUuid(string $uuid)
     {
-        // return $this->entity
-        //     ->join('tenants', 'tenants.id', '=', 'categories.tenant_id')
-        //     ->where('tenants.uuid', $uuid)
-        //     ->select('categories.*')->get();
+        return DB::table($this->table)
+            ->join('tenants', 'tenants.id', '=', 'categories.tenant_id')
+            ->where('tenants.uuid', $uuid)
+            ->select('categories.*')->get();
 
     }
     public function getCategoriesById(int $id)
     {
-        // dd($this->entity->where('tenant_id', '2'));
-        return $this->entity->where('tenant_id', $id)->get();
+        return DB::table($this->table)->where('tenant_id', $id)->get();
+    }
+
+    public function getCategoryByUrl(string $url)
+    {
+        return DB::table($this->table)->where('url', $url)->first();
     }
 }
