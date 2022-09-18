@@ -34,8 +34,10 @@ class CategoryApiController extends Controller
         {
             return response()->json(['message', 'Token not found'], 404);
         }
-
-        $category = $this->categoryServices->getCategoryByUrl($url);
+        if(!$category = $this->categoryServices->getCategoryByUrl($url))
+        {
+            return response()->json(['message', 'Categoria não encontrada'], 404);
+        }
         return new CategoryResource($category);
     }
 }

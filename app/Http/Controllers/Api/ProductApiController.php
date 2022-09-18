@@ -24,9 +24,18 @@ class ProductApiController extends Controller
             return response()->json(['message', 'Tenant não encontrado'], 404);
         }
 
-        $products = $this->productServices->getProductsByTenantUuid($request->uuid);
+        $products = $this->productServices->getProductsByTenantUuid($request->uuid, $request->get('categories', []));
 
         return ProductResource::collection($products);
-        // return $products;
+    }
+
+    public function show($flag)
+    {
+        if(!$product = $this->productServices->getProductByFlag($flag))
+        {
+            return response()->json(['message', 'flag invalida'], 404);
+        }
+
+        return new ProductResource($product);
     }
 }
