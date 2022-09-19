@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Repositories\CategoryRepository;
+use App\Repositories\ClientRepository;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
+use App\Repositories\Contracts\ClientRepositoryInterface;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use App\Repositories\Contracts\TenantRepositoryInterface;
 use App\Repositories\ProductsRepository;
@@ -32,7 +34,10 @@ class RepositoryServiceProvider extends ServiceProvider
             ProductRepositoryInterface::class,
             ProductsRepository::class
         );
-
+        $this->app->bind(
+            ClientRepositoryInterface::class,
+            ClientRepository::class
+        );
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::prefix('v1')->namespace('Api')->group(function () {
     Route::get('/tenants/{uuid}', 'TenantApiController@getTenantByUuid');
     Route::get('/tenants', 'TenantApiController@index');
@@ -10,9 +12,6 @@ Route::prefix('v1')->namespace('Api')->group(function () {
     Route::get('/products', 'ProductApiController@productsByTenant');
     Route::get('/products/{flag}', 'ProductApiController@show');
 
-    Route::get('/debug', function(){
-        return [
-            'aparece' => 'deu certo',
-        ];
-    });
+    Route::post('/client', 'Auth\RegisterController@store');
 });
+
