@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateProducts;
 use App\Http\Resources\ProductResource;
 use App\Services\ProductServices;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class ProductApiController extends Controller
         $this->productServices = $productServices;
     }
 
-    public function productsByTenant(request $request)
+    public function productsByTenant(StoreUpdateProducts $request)
     {
 
         if($request->uuid == null)

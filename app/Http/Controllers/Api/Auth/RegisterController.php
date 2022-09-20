@@ -17,7 +17,7 @@ class RegisterController extends Controller
         $this->clientService = $clientService;
     }
 
-    public function store(StoreClient $array)
+    public function store(request $array)
     {
         $client = $this->clientService->createNewClient($array->all());
 
