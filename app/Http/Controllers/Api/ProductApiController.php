@@ -17,7 +17,7 @@ class ProductApiController extends Controller
         $this->productServices = $productServices;
     }
 
-    public function productsByTenant(StoreUpdateProducts $request)
+    public function productsByTenant(request $request)
     {
 
         if($request->uuid == null)
@@ -30,11 +30,11 @@ class ProductApiController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function show($flag)
+    public function show($uuid)
     {
-        if(!$product = $this->productServices->getProductByFlag($flag))
+        if(!$product = $this->productServices->getProductByUuid($uuid))
         {
-            return response()->json(['message', 'flag invalida'], 404);
+            return response()->json(['message', 'uuid invalida'], 404);
         }
 
         return new ProductResource($product);

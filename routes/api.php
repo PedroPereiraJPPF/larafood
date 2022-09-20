@@ -26,7 +26,7 @@ Route::prefix('v1')->namespace('Api')->group(function () {
     Route::get('/categories', 'CategoryApiController@categoriesByTenant');
 
     Route::get('/products', 'ProductApiController@productsByTenant');
-    Route::get('/products/{flag}', 'ProductApiController@show');
+    Route::get('/products/{uuid}', 'ProductApiController@show');
 
     Route::post('/client', 'Auth\RegisterController@store');
 
