@@ -31,5 +31,8 @@ Route::prefix('v1')->namespace('Api')->group(function () {
     Route::post('/client', 'Auth\RegisterController@store');
 
     Route::post('/sactum/token', 'Auth\AuthClientController@auth');
+
+    Route::post('/orders', 'OrderApiController@store');
+    // Route::get('/orders/{identify}', 'OrderApiController@')
 });
 

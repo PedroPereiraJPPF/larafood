@@ -46,4 +46,5 @@ class AuthClientController extends Controller
 
         return response()->json([], 204);
     }
+
 }

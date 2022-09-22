@@ -24,10 +24,10 @@ class TenantFormRequest extends FormRequest
    public function rules()
    {
        return [
-           'token_company' => ['required',
+           'token_company' => [
+            'required',
            'exists:tenants,uuid'
            ]
-
        ];
    }
 }
