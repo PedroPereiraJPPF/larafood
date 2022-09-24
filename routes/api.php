@@ -1,21 +1,23 @@
 <?php
 
 use App\Models\Client;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('auth/v1/orders', 'Api\OrderApiController@store');
+    Route::get('/auth/v1/myOrders', 'Api\OrderApiController@myOrders');
     Route::get('auth/me', 'Api\Auth\AuthClientController@me');
     Route::post('auth/logout', 'Api\Auth\AuthClientController@logout');
 });
 
 
-Route::get('teste', function () {
-    $client = Client::first();
+Route::get('teste', function (order $order) {
+    $client = Order::first();
 
-    $token = $client->createToken('token-teste');
-
-    dd($token->plainTextToken);
+    dd($order->products());
 });
 
 Route::prefix('v1')->namespace('Api')->group(function () {
@@ -33,6 +35,6 @@ Route::prefix('v1')->namespace('Api')->group(function () {
     Route::post('/sactum/token', 'Auth\AuthClientController@auth');
 
     Route::post('/orders', 'OrderApiController@store');
-    // Route::get('/orders/{identify}', 'OrderApiController@')
+    Route::get('/orders/{identify}', 'OrderApiController@show');
 });
 

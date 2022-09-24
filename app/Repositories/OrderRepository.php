@@ -15,6 +15,8 @@ class OrderRepository implements OrderRepositoryInterface
         $this->entity = $order;
     }
 
+
+
     public function createNewOrder(
         string $identify,
         float $total,
@@ -28,7 +30,7 @@ class OrderRepository implements OrderRepositoryInterface
             'identify' => $identify,
             'total' => $total,
             'status' => $status,
-            'tenant_id' =>$tenantId,
+            'tenant_id' => $tenantId,
             'comment' => $comment
         ];
 
@@ -43,6 +45,28 @@ class OrderRepository implements OrderRepositoryInterface
         return $this->entity->where('identify', $identify)->first();
     }
 
+    public function registerProductsOrder(int $orderId, array $products)
+    {
+        $order = $this->entity->find($orderId);
 
+        $orderProducts = [];
+
+        foreach ($products as $product) {
+            $orderProducts[$product['id']] = [
+                'qty' => $product['qty'],
+                'price' => $product['price'],
+            ];
+        }
+
+        $order->products()->attach($orderProducts);
+    }
+
+
+    public function getOrdersByClientId(int $idClient)
+    {
+        $orders = $this->entity->where('client_id', $idClient)->paginate();
+
+        return $orders;
+    }
 
 }

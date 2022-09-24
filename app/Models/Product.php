@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Tenant\Traits\TenantTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Contracts\OrderRepositoryInterface;
+use App\Repositories\Contracts\ProductRepositoryInterface;
 use App\Repositories\Contracts\TenantRepositoryInterface;
 
 class OrderServices
@@ -11,19 +12,34 @@ class OrderServices
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
-        TenantRepositoryInterface $tenantRepository
+        TenantRepositoryInterface $tenantRepository,
+        ProductRepositoryInterface $productRepository
     )
     {
         $this->orderRepository = $orderRepository;
         $this->tenantRepository = $tenantRepository;
+        $this->productRepository = $productRepository;
+    }
+
+    public function ordersByClient()
+    {
+        $idClient = $this->getClientByOrder();
+
+        return $this->orderRepository->getOrdersByClientId($idClient);
+    }
+
+    public function getOrderByIdentify(string $identify)
+    {
+        return $this->orderRepository->getOrderByIdentify($identify);
     }
 
     public function createNewOrder(array $order)
     {
+        $productsOrder = $this->getProductsByOrder($order['products'] ?? []);
         // string $identify,
         $identify = $this->getIdentifyOrder();
         // float $total,
-        $total = $this->getTotalOrder([]);
+        $total = $this->getTotalOrder($productsOrder);
         // string $status,
         $status = 'open';
         // int $tenantId,
@@ -62,13 +78,37 @@ class OrderServices
         return $identify;
     }
 
+    private function getProductsByOrder(array $productsOrder)
+    {
+        $products = [];
+
+        foreach($productsOrder as $productOrder)
+        {
+            $product = $this->productRepository->getProductByUuid($productOrder['identify']);
+
+            array_push($products, [
+                'id' => $product->id,
+                'qty' => $productOrder['qty'],
+                'price' => $product->price
+            ]);
+        }
+
+        return $products;
+    }
+
     private function getTotalOrder(array $products)
     {
-        return (float) 90;
+        $total = 0;
+
+        foreach ($products as $product) {
+            $total += ($product['price'] * $product['qty']);
+        }
+
+        return $total;
     }
 
 
-    private function getTenantIdByOrder(string $uuid)
+    private function getTenantIdByOrder(string $uuid):int
     {
         $tenant = $this->tenantRepository->getTenantByUuid($uuid);
 
@@ -79,4 +119,6 @@ class OrderServices
     {
         return auth()->check() ? auth()->user()->id: '';
     }
+
+
 }

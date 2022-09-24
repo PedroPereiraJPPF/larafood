@@ -2,17 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
+// rota de debug
+Route::get('/acl-test', function(){
+});
+
 Route::prefix('admin')
 ->namespace('Admin')
 ->middleware('auth')
 ->group(function(){
 
-
-
-    // rota de debug
-    Route::get('/acl-test', function(){
-        dd(auth()->user()->isAdmin());
-    });
 
     // rotas de categorias x produtos
     Route::get('products/{id}/categories/{idCategory}/delete', 'CategoryProductController@productCategoryDetach')->name('categories.detach');
